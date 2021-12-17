@@ -6,12 +6,15 @@ import com.bahadirmemis.springboot.entity.Customer;
 import com.bahadirmemis.springboot.entity.CustomerReview;
 import java.util.List;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface CustomerReviewConvertor extends BaseConvertor<CustomerReview,CustomerReviewDto> {
 
   CustomerReviewDto toDto(CustomerReview customer);
 
+  @Mapping(source = "customerId" , target = "customer.id")
+  @Mapping(source = "productId" , target = "product.id")
   CustomerReview toEntity(CustomerReviewDto customerReviewDto);
 
   List<CustomerReview> toEntity(List<CustomerReviewDto> dtoList);

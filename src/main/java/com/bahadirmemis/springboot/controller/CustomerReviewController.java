@@ -50,9 +50,8 @@ public class CustomerReviewController {
   }
 
   @DeleteMapping("/{id}")
-  public void deleteResponse(@PathVariable Long id){
+  public void deleteReview(@PathVariable Long id) {
     customerReviewService.deleteCustomerReview(id);
   }
-
 
 }

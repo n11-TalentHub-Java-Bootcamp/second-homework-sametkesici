@@ -3,7 +3,9 @@ package com.bahadirmemis.springboot.service.entityservice;
 import com.bahadirmemis.springboot.dao.CustomerDao;
 import com.bahadirmemis.springboot.dto.CustomerDto;
 import com.bahadirmemis.springboot.entity.Customer;
+import com.bahadirmemis.springboot.exception.UserNameAndPhoneNumberIsNotMatchException;
 import java.util.List;
+import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,12 @@ public class CustomerService {
     return customerDao.findByUserName(userName);
   }
 
+  public Customer findCustomerById(Long id){
+
+    return  customerDao.findById(id).orElseThrow(EntityNotFoundException::new);
+
+  }
+
   public Customer findCustomerByPhoneNumber(String phoneNumber)
   {
     return customerDao.findByPhoneNumber(phoneNumber);
@@ -30,7 +38,6 @@ public class CustomerService {
 
   public Customer saveCustomer(Customer customer)
   {
-    System.out.println("Kullanıcı başarıyla kaydedildi");
     return customerDao.save(customer);
   }
 
@@ -42,7 +49,7 @@ public class CustomerService {
        customerDao.delete(customerByUsername);
        System.out.println("Kullanıcı silindi");
      }else{
-       throw new Exception("Kullanıcı bulunamadı");
+       throw new UserNameAndPhoneNumberIsNotMatchException(userName + " kullanıcı adi ile " + phoneNumber + " telefon numarası uyuşmamaktadır");
      }
   }
 

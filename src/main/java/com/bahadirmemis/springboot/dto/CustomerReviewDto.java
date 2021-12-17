@@ -14,8 +14,8 @@ public class CustomerReviewDto {
 
   private Date reviewDate;
 
-  private Customer customer;
+  private Long customerId;
 
-  private Urun product;
+  private Long productId;
 
 }

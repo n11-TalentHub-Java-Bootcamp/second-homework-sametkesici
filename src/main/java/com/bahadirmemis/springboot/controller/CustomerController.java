@@ -32,34 +32,27 @@ public class CustomerController {
     return customerConvertor.toDto(customerService.findAllCustomers());
   }
 
-  @GetMapping("/{userName}")
+  @GetMapping("/username/{userName}")
   public CustomerDto findCustomerByUserName(@PathVariable String userName){
     return customerConvertor.toDto(customerService.findCustomerByUserName(userName));
   }
 
-  @GetMapping("/{phoneNumber}")
+
+  @GetMapping("/phonenumber/{phoneNumber}")
   public CustomerDto findCustomerByPhoneNumber(@PathVariable String phoneNumber){
     return customerConvertor.toDto(customerService.findCustomerByPhoneNumber(phoneNumber));
   }
 
+
   @PostMapping("")
-  public ResponseEntity<Object> saveCustomer(@RequestBody CustomerDto customerDto){
+  public Customer saveCustomer(@RequestBody CustomerDto customerDto){
 
-    customerService.saveCustomer(customerConvertor.toEntity(customerDto));
-
-    URI uri = ServletUriComponentsBuilder
-        .fromCurrentRequest()
-        .path("{id}")
-        .buildAndExpand(customerDto.getId())
-        .toUri();
-
-    return ResponseEntity.created(uri).build();
-
+     return customerService.saveCustomer(customerConvertor.toEntity(customerDto));
 
   }
 
-  @DeleteMapping("/{id}")
-  public void deleteCustomer(@PathVariable String userName , String phoneNumber) throws Exception {
+  @DeleteMapping("/{userName}/{phoneNumber}")
+  public void deleteCustomer(@PathVariable String userName , @PathVariable  String phoneNumber) throws Exception {
 
       customerService.deleteCustomer(userName,phoneNumber);
   }
@@ -68,7 +61,4 @@ public class CustomerController {
   public void updateCustomer(@RequestBody CustomerDto customerDto){
       customerService.updateCustomer(customerConvertor.toEntity(customerDto));
   }
-
-
-
 }
