@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,14 +17,18 @@ import lombok.Setter;
 
 @Entity
 @Getter
+@Table(
+    name = "CUSTOMER"
+)
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
 
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(generator = "generator")
+  @SequenceGenerator(name = "generator", sequenceName = "CUSTOMER_ID_SEQ" )
   @Id
-  @Column(nullable = false , updatable = false)
+  @Column(nullable = false , name = "ID")
   private Long id;
 
   @Column(length = 50)
@@ -42,7 +48,5 @@ public class Customer {
 
   @OneToMany(cascade = CascadeType.ALL , mappedBy = "customer")
   private List<CustomerReview> customerReviews;
-
-
 
 }

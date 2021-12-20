@@ -5,6 +5,7 @@ import com.bahadirmemis.springboot.entity.CustomerReview;
 import com.bahadirmemis.springboot.exception.ReviewNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,19 +26,18 @@ public class CustomerReviewService {
     String customerName = customerService.findCustomerById(customerId).getName();
 
     if(reviewsByUserId.isEmpty()){
-      throw new ReviewNotFoundException(customerName + " adlı kullanıcı henuz bir yorum yazmamistir.");
+      throw new ReviewNotFoundException(customerName + " adlı kullanici henuz bir yorum yazmamistir.");
     }else{
       return reviewsByUserId;
     }
   }
-
 
   public List<CustomerReview> findReviewByProductId(Long productId)  {
       List<CustomerReview> reviewsByProductId = customerReviewDao.findByProductId(productId);
       String productName = productService.findById(productId).getAdi();
 
       if(reviewsByProductId.isEmpty()){
-        throw new ReviewNotFoundException(productName + " adli urune henuz bir yorum yazilmamıstır");
+        throw new ReviewNotFoundException(productName + " adli urune henuz bir yorum yazilmamistir");
       }else{
         return reviewsByProductId;
       }
@@ -46,6 +46,7 @@ public class CustomerReviewService {
   public CustomerReview saveCustomerReview(CustomerReview customerReview){
       return customerReviewDao.save(customerReview);
   }
+
 
   public void deleteCustomerReview(Long customerReviewId){
       customerReviewDao.deleteById(customerReviewId);

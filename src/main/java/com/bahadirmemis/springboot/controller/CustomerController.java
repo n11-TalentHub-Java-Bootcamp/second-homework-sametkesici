@@ -1,7 +1,9 @@
 package com.bahadirmemis.springboot.controller;
 
 import com.bahadirmemis.springboot.converter.CustomerConvertor;
+import com.bahadirmemis.springboot.converter.CustomerRegisterConvertor;
 import com.bahadirmemis.springboot.dto.CustomerDto;
+import com.bahadirmemis.springboot.dto.CustomerRegisterDto;
 import com.bahadirmemis.springboot.entity.Customer;
 import com.bahadirmemis.springboot.service.entityservice.CustomerService;
 import java.util.List;
@@ -26,6 +28,8 @@ public class CustomerController {
 
   private final CustomerConvertor customerConvertor;
 
+  private final CustomerRegisterConvertor customerRegisterConvertor;
+
   @GetMapping("")
   public List<CustomerDto> findAllCustomers(){
     return customerConvertor.toDto(customerService.findAllCustomers());
@@ -36,29 +40,25 @@ public class CustomerController {
     return customerConvertor.toDto(customerService.findCustomerByUserName(userName));
   }
 
-
   @GetMapping("/phonenumber/{phoneNumber}")
   public CustomerDto findCustomerByPhoneNumber(@PathVariable String phoneNumber){
     return customerConvertor.toDto(customerService.findCustomerByPhoneNumber(phoneNumber));
   }
 
-
   @PostMapping("")
-  public Customer saveCustomer(@RequestBody CustomerDto customerDto){
-
-     return customerService.saveCustomer(customerConvertor.toEntity(customerDto));
-
+  public Customer saveCustomer(@RequestBody CustomerRegisterDto customerRegisterDto){
+     return customerService.saveCustomer(customerRegisterConvertor.toEntity(customerRegisterDto));
   }
 
   @DeleteMapping("/{userName}/{phoneNumber}")
-  public ResponseEntity<Object> deleteCustomer(@PathVariable String userName , @PathVariable  String phoneNumber)  {
+  public ResponseEntity<String> deleteCustomer(@PathVariable String userName , @PathVariable  String phoneNumber)  {
       customerService.deleteCustomer(userName,phoneNumber);
-
       return ResponseEntity.ok("kullanıcı silindi");
   }
 
   @PutMapping("/{id}")
-  public void updateCustomer(@RequestBody CustomerDto customerDto){
+  public ResponseEntity<String> updateCustomer(@RequestBody CustomerDto customerDto){
       customerService.updateCustomer(customerConvertor.toEntity(customerDto));
+      return ResponseEntity.ok("Kullanıcı başarıyla güncellendi");
   }
 }

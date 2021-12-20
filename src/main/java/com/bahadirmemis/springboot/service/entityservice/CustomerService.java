@@ -20,18 +20,18 @@ public class CustomerService {
   }
 
   public Customer findCustomerByUserName(String userName){
-    return customerDao.findByUserName(userName);
+    return customerDao.findByUserName(userName).orElseThrow(() -> new EntityNotFoundException(userName + " kullanıcı adına ait kayıt bulanamadi"));
   }
 
   public Customer findCustomerById(Long id){
 
-    return  customerDao.findById(id).orElseThrow(EntityNotFoundException::new);
+    return  customerDao.findById(id).orElseThrow(() -> new EntityNotFoundException(id + " id'si ile kullanıcı bulanamadi"));
 
   }
 
   public Customer findCustomerByPhoneNumber(String phoneNumber)
   {
-    return customerDao.findByPhoneNumber(phoneNumber);
+    return customerDao.findByPhoneNumber(phoneNumber).orElseThrow(() -> new EntityNotFoundException(phoneNumber + " telefon numarasıyla kullanıcı bulanamadi"));
   }
 
   public Customer saveCustomer(Customer customer)
@@ -50,11 +50,9 @@ public class CustomerService {
      }
   }
 
-  public Customer updateCustomer(Customer customer){
-    return saveCustomer(customer);
+  public void updateCustomer(Customer customer){
+    saveCustomer(customer);
   }
-
-
 
 
 }

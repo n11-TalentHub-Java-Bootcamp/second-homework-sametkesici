@@ -45,7 +45,7 @@ public class KategoriController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Object> save(@RequestBody KategoriDto kategoriDto){ //TODO: Input değeri dto tipinde olmalı
+    public ResponseEntity<URI> save(@RequestBody KategoriDto kategoriDto){
 
         Kategori kategori = KategoriConverter.INSTANCE.convertKategoriDtoToKategori(kategoriDto);
 
@@ -66,7 +66,7 @@ public class KategoriController {
     }
 
     @PutMapping("")
-    public KategoriDto update(@RequestBody KategoriDto kategoriDto){//TODO: Input değeri dto tipinde olmalı
+    public KategoriDto update(@RequestBody KategoriDto kategoriDto){
 
         Kategori kategori = KategoriConverter.INSTANCE.convertKategoriDtoToKategori(kategoriDto);
 
@@ -77,9 +77,7 @@ public class KategoriController {
 
         kategori = kategoriEntityService.save(kategori);
 
-        KategoriDto kategoriDtoResult = KategoriConverter.INSTANCE.convertKategoriToKategoriDto(kategori);
-
-        return kategoriDtoResult;
+        return KategoriConverter.INSTANCE.convertKategoriToKategoriDto(kategori);
     }
 
     @DeleteMapping("/{id}")
@@ -92,8 +90,6 @@ public class KategoriController {
     public List<UrunDetayDto> findAllUrunByKategoriId(@PathVariable Long id){
         List<Urun> urunList = urunEntityService.findAllByKategoriOrderByIdDesc(id);
 
-        List<UrunDetayDto> urunDetayDtoList = UrunConverter.INSTANCE.convertAllUrunListToUrunDetayDtoList(urunList);
-
-        return urunDetayDtoList;
+        return UrunConverter.INSTANCE.convertAllUrunListToUrunDetayDtoList(urunList);
     }
 }

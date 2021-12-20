@@ -1,5 +1,6 @@
 package com.bahadirmemis.springboot.exception;
 
+import javax.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -60,6 +61,16 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleAllExceptions(EntityNotFoundException ex, WebRequest webRequest){
 
+        Date errorDate = new Date();
+        String message = ex.getMessage();
+        String description = webRequest.getDescription(false);
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(errorDate, message, description);
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
 
 }
