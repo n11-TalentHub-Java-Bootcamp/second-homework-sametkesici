@@ -4,7 +4,6 @@ import com.bahadirmemis.springboot.converter.CustomerConvertor;
 import com.bahadirmemis.springboot.dto.CustomerDto;
 import com.bahadirmemis.springboot.entity.Customer;
 import com.bahadirmemis.springboot.service.entityservice.CustomerService;
-import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -52,9 +51,10 @@ public class CustomerController {
   }
 
   @DeleteMapping("/{userName}/{phoneNumber}")
-  public void deleteCustomer(@PathVariable String userName , @PathVariable  String phoneNumber) throws Exception {
-
+  public ResponseEntity<Object> deleteCustomer(@PathVariable String userName , @PathVariable  String phoneNumber)  {
       customerService.deleteCustomer(userName,phoneNumber);
+
+      return ResponseEntity.ok("kullanıcı silindi");
   }
 
   @PutMapping("/{id}")

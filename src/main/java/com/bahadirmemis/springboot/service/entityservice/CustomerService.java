@@ -1,13 +1,11 @@
 package com.bahadirmemis.springboot.service.entityservice;
 
 import com.bahadirmemis.springboot.dao.CustomerDao;
-import com.bahadirmemis.springboot.dto.CustomerDto;
 import com.bahadirmemis.springboot.entity.Customer;
 import com.bahadirmemis.springboot.exception.UserNameAndPhoneNumberIsNotMatchException;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,13 +39,12 @@ public class CustomerService {
     return customerDao.save(customer);
   }
 
-  public void deleteCustomer(String userName, String phoneNumber) throws Exception {
+  public void deleteCustomer(String userName, String phoneNumber){
      Customer customerByUsername = findCustomerByUserName(userName);
      Customer customerByPhoneNumber = findCustomerByPhoneNumber(phoneNumber);
 
      if(customerByUsername.getId().equals(customerByPhoneNumber.getId())){
-       customerDao.delete(customerByUsername);
-       System.out.println("Kullanıcı silindi");
+       customerDao.deleteById(customerByUsername.getId());
      }else{
        throw new UserNameAndPhoneNumberIsNotMatchException(userName + " kullanıcı adi ile " + phoneNumber + " telefon numarası uyuşmamaktadır");
      }
@@ -55,7 +52,7 @@ public class CustomerService {
 
   public Customer updateCustomer(Customer customer){
     return saveCustomer(customer);
-  };
+  }
 
 
 

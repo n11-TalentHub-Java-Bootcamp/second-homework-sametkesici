@@ -1,7 +1,5 @@
 package com.bahadirmemis.springboot.dto;
 
-import com.bahadirmemis.springboot.entity.Customer;
-import com.bahadirmemis.springboot.entity.Urun;
 import java.util.Date;
 import lombok.Data;
 

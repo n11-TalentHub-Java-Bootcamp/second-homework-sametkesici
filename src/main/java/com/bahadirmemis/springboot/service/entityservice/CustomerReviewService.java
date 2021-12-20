@@ -1,15 +1,10 @@
 package com.bahadirmemis.springboot.service.entityservice;
 
-import com.bahadirmemis.springboot.dao.CustomerDao;
 import com.bahadirmemis.springboot.dao.CustomerReviewDao;
-import com.bahadirmemis.springboot.entity.Customer;
 import com.bahadirmemis.springboot.entity.CustomerReview;
-import com.bahadirmemis.springboot.entity.Urun;
 import com.bahadirmemis.springboot.exception.ReviewNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
