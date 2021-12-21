@@ -4,6 +4,7 @@ import com.bahadirmemis.springboot.dao.CustomerDao;
 import com.bahadirmemis.springboot.entity.Customer;
 import com.bahadirmemis.springboot.exception.UserNameAndPhoneNumberIsNotMatchException;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class CustomerService {
     return customerDao.findByUserName(userName).orElseThrow(() -> new EntityNotFoundException(userName + " kullanıcı adına ait kayıt bulanamadi"));
   }
 
-  public Customer findCustomerById(Long id){
+  public Customer findCustomerById(UUID id){
 
     return  customerDao.findById(id).orElseThrow(() -> new EntityNotFoundException(id + " id'si ile kullanıcı bulanamadi"));
 
@@ -39,12 +40,13 @@ public class CustomerService {
     return customerDao.save(customer);
   }
 
+
   public void deleteCustomer(String userName, String phoneNumber){
      Customer customerByUsername = findCustomerByUserName(userName);
      Customer customerByPhoneNumber = findCustomerByPhoneNumber(phoneNumber);
 
      if(customerByUsername.getId().equals(customerByPhoneNumber.getId())){
-       customerDao.deleteById(customerByUsername.getId());
+       //customerDao.deleteById(customerByUsername.getId());
      }else{
        throw new UserNameAndPhoneNumberIsNotMatchException(userName + " kullanıcı adi ile " + phoneNumber + " telefon numarası uyuşmamaktadır");
      }

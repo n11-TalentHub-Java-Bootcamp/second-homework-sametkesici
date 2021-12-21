@@ -2,9 +2,12 @@ package com.bahadirmemis.springboot.controller;
 
 import com.bahadirmemis.springboot.converter.CustomerReviewConvertor;
 import com.bahadirmemis.springboot.dto.CustomerReviewDto;
+import com.bahadirmemis.springboot.entity.Customer;
 import com.bahadirmemis.springboot.entity.CustomerReview;
 import com.bahadirmemis.springboot.service.entityservice.CustomerReviewService;
+import com.bahadirmemis.springboot.service.entityservice.CustomerService;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,8 +27,10 @@ public class CustomerReviewController {
 
   private final CustomerReviewConvertor customerReviewConvertor;
 
+  private final CustomerService customerService;
+
   @GetMapping("/customerId/{customerId}")
-  public List<CustomerReviewDto> findCustomerReviewsByCustomerId(@PathVariable Long customerId){
+  public List<CustomerReviewDto> findCustomerReviewsByCustomerId(@PathVariable UUID customerId){
       return customerReviewConvertor.toDto(customerReviewService.findReviewByCustomerId(customerId));
   }
 
@@ -37,6 +42,8 @@ public class CustomerReviewController {
   @PostMapping("")
   public ResponseEntity<String> saveCustomerReview(@RequestBody CustomerReviewDto customerReviewDto){
 
+    customerService.findCustomerById(customerReviewDto.getCustomerId());
+
     CustomerReview customerReview = customerReviewConvertor.toEntity(customerReviewDto);
     customerReviewService.saveCustomerReview(customerReview);
 
@@ -44,7 +51,7 @@ public class CustomerReviewController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<String> deleteReview(@PathVariable Long id) {
+  public ResponseEntity<String> deleteReview(@PathVariable UUID id) {
 
     customerReviewService.deleteCustomerReview(id);
     return ResponseEntity.ok("Kullanıcı Yorumu Basarıyla Silindi");

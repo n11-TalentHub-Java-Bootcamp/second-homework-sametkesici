@@ -20,7 +20,7 @@ public class Kategori  implements Serializable {
     @SequenceGenerator(name = "generator", sequenceName = "KATEGORI_ID_SEQ")
     @Id
     @GeneratedValue(generator = "generator")
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "ADI", nullable = false, length = 50)

@@ -4,6 +4,7 @@ import com.bahadirmemis.springboot.dao.CustomerReviewDao;
 import com.bahadirmemis.springboot.entity.CustomerReview;
 import com.bahadirmemis.springboot.exception.ReviewNotFoundException;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class CustomerReviewService {
   private final CustomerService customerService;
 
 
-  public List<CustomerReview> findReviewByCustomerId(Long customerId)  {
+  public List<CustomerReview> findReviewByCustomerId(UUID customerId)  {
 
     List<CustomerReview> reviewsByUserId = customerReviewDao.findByCustomerId(customerId);
 
@@ -48,7 +49,7 @@ public class CustomerReviewService {
   }
 
 
-  public void deleteCustomerReview(Long customerReviewId){
+  public void deleteCustomerReview(UUID customerReviewId){
       customerReviewDao.deleteById(customerReviewId);
   }
 

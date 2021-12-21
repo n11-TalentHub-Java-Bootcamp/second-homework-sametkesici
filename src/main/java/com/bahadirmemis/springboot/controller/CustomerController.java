@@ -46,8 +46,8 @@ public class CustomerController {
   }
 
   @PostMapping("")
-  public Customer saveCustomer(@RequestBody CustomerRegisterDto customerRegisterDto){
-     return customerService.saveCustomer(customerRegisterConvertor.toEntity(customerRegisterDto));
+  public CustomerDto saveCustomer(@RequestBody CustomerRegisterDto customerRegisterDto){
+     return customerConvertor.toDto(customerService.saveCustomer(customerRegisterConvertor.toEntity(customerRegisterDto)));
   }
 
   @DeleteMapping("/{userName}/{phoneNumber}")

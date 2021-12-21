@@ -1,6 +1,7 @@
 package com.bahadirmemis.springboot.entity;
 
 import java.util.Date;
+import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,22 +19,19 @@ import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(
-    name = "CUSTOMER_REVIEW"
-)
 public class CustomerReview {
 
   @Id
-  @GeneratedValue(generator = "generator")
-  @SequenceGenerator(name = "generator", sequenceName = "CUSTOMER_REVIEW_ID_SEQ" )
-  @Column(nullable = false , name = "ID")
-  private Long id;
+  @GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")
+  @GeneratedValue(generator = "UUIDGenerator")
+  @Column(name = "id", updatable = false, nullable = false)
+  private UUID id;
 
   @Column(length = 500)
   private String review;
