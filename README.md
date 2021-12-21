@@ -17,16 +17,13 @@
 
 ## Kullanım
 
-`Öncelikle n11_bootcamp adında bir veritabanı oluşturulmalı ve resources klasöründeki hibernatecfg.xml deki konfigürasyonlar( şifre ve kullanıcı adı) özelleştirilmelidir.`
+`Öncelikle n11_bootcamp adında bir veritabanı oluşturulmalı ve resources klasöründeki application.properties deki konfigürasyonlar( şifre ve kullanıcı adı) özelleştirilmelidir.`
 
-`Projeyi klonladıktan sonra tabloları oluşturması amacıyla herhangi bir application'da 1 kere çalıştırmalıdır.`
-
-`Daha sonra hibernatecfg.xml üzerinde "<property name="hibernate.hbm2ddl.auto">create</property>" create kısmı update olarak değiştirilmelidir.`
+`Tabloları oluşturması amacıyla proje çalıştırılmalıdır.`
 
 `Veritabanına ise gerekli dataları setlemek için resources klasöründeki all_data_instert.sql ' da bulunan datalar veritabanındaki query tool üzerinde çalıştırılmalıdır.`
 
-`Daha sonra Intelij Idea üzerinde applicationlar çalıştırılabilir. `
-
+`Daha sonra Swagger ( http://localhost:8080/swagger-ui.html ) üzerinde ödev kontrolü yapılabilir.`
 
 
 ## Proje Durumu
