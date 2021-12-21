@@ -46,13 +46,14 @@ public class CustomerService {
      Customer customerByPhoneNumber = findCustomerByPhoneNumber(phoneNumber);
 
      if(customerByUsername.getId().equals(customerByPhoneNumber.getId())){
-       //customerDao.deleteById(customerByUsername.getId());
+       customerDao.deleteById(customerByUsername.getId());
      }else{
        throw new UserNameAndPhoneNumberIsNotMatchException(userName + " kullanıcı adi ile " + phoneNumber + " telefon numarası uyuşmamaktadır");
      }
   }
 
   public void updateCustomer(Customer customer){
+    findCustomerById(customer.getId());
     saveCustomer(customer);
   }
 

@@ -53,6 +53,8 @@ public class CustomerReviewController {
   @DeleteMapping("/{id}")
   public ResponseEntity<String> deleteReview(@PathVariable UUID id) {
 
+
+
     customerReviewService.deleteCustomerReview(id);
     return ResponseEntity.ok("Kullanıcı Yorumu Basarıyla Silindi");
 

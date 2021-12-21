@@ -5,8 +5,8 @@ import com.bahadirmemis.springboot.entity.CustomerReview;
 import com.bahadirmemis.springboot.exception.ReviewNotFoundException;
 import java.util.List;
 import java.util.UUID;
+import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -44,13 +44,19 @@ public class CustomerReviewService {
       }
   }
 
-  public CustomerReview saveCustomerReview(CustomerReview customerReview){
-      return customerReviewDao.save(customerReview);
+  public void saveCustomerReview(CustomerReview customerReview){
+      findById(customerReview.getId());
+      customerReviewDao.save(customerReview);
   }
 
 
   public void deleteCustomerReview(UUID customerReviewId){
-      customerReviewDao.deleteById(customerReviewId);
+    findById(customerReviewId);
+    customerReviewDao.deleteById(customerReviewId);
+  }
+
+  public CustomerReview findById(UUID customerReviewId){
+    return customerReviewDao.findById(customerReviewId).orElseThrow(() -> new EntityNotFoundException(customerReviewId + " bu id ile ilişkili kullanıcı bulunamamıstır"));
   }
 
 

@@ -58,6 +58,7 @@ public class CustomerController {
 
   @PutMapping("/{id}")
   public ResponseEntity<String> updateCustomer(@RequestBody CustomerDto customerDto){
+      customerService.findCustomerById(customerDto.getId());
       customerService.updateCustomer(customerConvertor.toEntity(customerDto));
       return ResponseEntity.ok("Kullanıcı başarıyla güncellendi");
   }
