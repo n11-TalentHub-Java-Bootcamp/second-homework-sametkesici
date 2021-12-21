@@ -45,20 +45,15 @@ public class CustomerReviewService {
   }
 
   public void saveCustomerReview(CustomerReview customerReview){
-      findById(customerReview.getId());
+      customerService.findCustomerById(customerReview.getCustomer().getId());
       customerReviewDao.save(customerReview);
   }
 
 
   public void deleteCustomerReview(UUID customerReviewId){
-    findById(customerReviewId);
+    customerReviewDao.findById(customerReviewId).orElseThrow(() -> new EntityNotFoundException(customerReviewId + " bu id ile bir kullanıcı yorumu bulanamamıstir."));
     customerReviewDao.deleteById(customerReviewId);
   }
-
-  public CustomerReview findById(UUID customerReviewId){
-    return customerReviewDao.findById(customerReviewId).orElseThrow(() -> new EntityNotFoundException(customerReviewId + " bu id ile ilişkili kullanıcı bulunamamıstır"));
-  }
-
 
 
 }
