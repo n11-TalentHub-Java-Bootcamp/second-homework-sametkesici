@@ -1,4 +1,4 @@
-# Ödev 1 
+# Ödev 2
 
 ## İçerikler
 * [Ekran Görüntüleri](#ekran-görüntüleri)
